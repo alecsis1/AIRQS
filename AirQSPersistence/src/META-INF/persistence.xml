@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="AirQSPersistence" transaction-type="JTA">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:jboss/datasources/AIRQSDS</jta-data-source>
+		<class>org.qs.air.api.core.entities.AirMetric</class>
+		
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<validation-mode>CALLBACK</validation-mode>
+		<properties>
+			
+			<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/AirQSEntityManagerFactory" />
+         	<property name="jboss.entity.manager.jndi.name" value="java:/AirQSEntityManager"/>
+			
+			<property name="hibernate.c3p0.min_size" value="5"/>
+			<property name="hibernate.c3p0.max_size" value="20"/>
+			<property name="hibernate.c3p0.timeout" value="1800"/>
+			<property name="hibernate.c3p0.max_statements" value="50"/>
+			<property name="hibernate.c3p0.idle_test_period" value="3000"/>
+			<property name="hibernate.c3p0.acquire_increment" value="2"/>
+			<property name="hibernate.c3p0.validate" value="false"/>
+			<property name="hibernate.connection.pool_size" value="10"/>
+			<property name="hibernate.order_updates" value="false"/>
+			<property name="hibernate.bytecode.use_reflection_optimizer" value="true"/>
+			<!-- validate | update | create | create-drop -->
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<!--property name="hibernate.hbm2ddl.import_files" value="/META-INF/init_db.sql"/-->
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.use_sql_comments" value="false"/>
+			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.generate_statistics" value="false"/>
+			<property name="hibernate.connection.CharSet" value="utf8"/>
+			<property name="hibernate.id.new_generator_mappings" value="false" />
+        	<property name="hibernate.connection.characterEncoding" value="utf8"/>
+        	<property name="hibernate.connection.useUnicode" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="AirQSRest" version="3.1">
+  <display-name>AirQSRest</display-name>
+  <context-param>
+    <param-name>maxSize</param-name>
+    <param-value>315621376</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.servlet.mapping.prefix</param-name>
+    <param-value>/api/v1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>resteasy.role.based.security</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>ResteasyServlet</servlet-name>
+    <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher</servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>org.qs.air.rest.AirRestApplication</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+    <enabled>true</enabled>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResteasyServlet</servlet-name>
+    <url-pattern>/api/v1/*</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <security-constraint>
+    <display-name>AirQS</display-name>
+    <web-resource-collection>
+      <web-resource-name>all</web-resource-name>
+      <url-pattern>/api/v1/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>administrators</role-name>
+      <role-name>users</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>KEYCLOAK</auth-method>
+    <realm-name>AirQS</realm-name>
+  </login-config>
+    <security-role>
+    <description>The role required to login to application</description>
+    <role-name>administrators</role-name>
+  </security-role>
+  <security-role>
+    <description>The role required to login to application</description>
+    <role-name>users</role-name>
+  </security-role>
+  <security-role>
+    <description>The role required to login to application</description>
+    <role-name>guests</role-name>
+  </security-role>
+</web-app>
