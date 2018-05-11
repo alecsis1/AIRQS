@@ -8,13 +8,13 @@ org\rpi\sense\hat\api\dto\joystick\Action.class
 org\rpi\sense\hat\utils\PythonUtils.class
 org\rpi\sense\hat\exception\CommandException.class
 org\rpi\sense\hat\api\IMU.class
+org\rpi\qs\air\logger\Main.class
 org\rpi\sense\hat\connector\mock\MockCommandExecutor.class
 org\rpi\sense\hat\api\dto\IMUDataRaw.class
 org\rpi\sense\hat\api\dto\CommandResult.class
 org\rpi\sense\hat\api\dto\IMUData.class
 org\rpi\sense\hat\api\LEDMatrix.class
 org\rpi\sense\hat\api\APIBase.class
-org\rpi\sense\hat\Main.class
 org\rpi\sense\hat\api\dto\joystick\Direction.class
 org\rpi\sense\hat\connector\SimpleCommandExecutor.class
 org\rpi\sense\hat\connector\CommandExecutorFactory.class
