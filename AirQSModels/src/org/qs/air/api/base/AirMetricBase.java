@@ -42,6 +42,12 @@ public class AirMetricBase extends EntityBase implements Serializable {
 
 	@Column(name = "timestamp", columnDefinition = "bigint DEFAULT 0 ")
 	private long timestamp;
+	
+	@Column(name = "lat", columnDefinition = "double DEFAULT 0.00000 ")
+	private double lat;
+
+	@Column(name = "lng", columnDefinition = "double DEFAULT 0.00000 ")
+	private double lng;
 
 	public AirMetricBase() {
 	}
@@ -117,12 +123,32 @@ public class AirMetricBase extends EntityBase implements Serializable {
 	public void setPressure(double pressure) {
 		this.pressure = pressure;
 	}
+	
+	
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
 
 	@Override
 	public String toString() {
 		return "AirMetricBase [name=" + name + ", mq7=" + mq7 + ", mq3=" + mq3 + ", mq135=" + mq135 + ", mq2=" + mq2
-				+ ", hum=" + hum + ", temp=" + temp + ", pressure=" + pressure + ", timestamp=" + timestamp
-				+ ", getId()=" + getId() + "]";
+				+ ", hum=" + hum + ", temp=" + temp + ", pressure=" + pressure + ", timestamp=" + timestamp + ", lat="
+				+ lat + ", lng=" + lng + ", getId()=" + getId() + "]";
 	}
+
+	
 
 }
