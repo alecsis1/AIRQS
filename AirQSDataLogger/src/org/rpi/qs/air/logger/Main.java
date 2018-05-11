@@ -1,4 +1,4 @@
-package org.rpi.sense.hat;
+package org.rpi.qs.air.logger;
 
 import java.io.InputStream;
 import java.util.ArrayList;
