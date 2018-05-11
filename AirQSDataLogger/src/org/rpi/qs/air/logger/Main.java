@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.qs.air.api.core.entities.AirMetric;
 import org.qs.air.rest.client.AirQSRestClient;
-import org.rpi.sense.hat.api.SenseHat;
+
 
 import com.fazecast.jSerialComm.SerialPort;
+
+import rpi.sensehat.api.SenseHat;
 
 public class Main {
 
