@@ -16,7 +16,7 @@ function getData() {
     	console.log(data);
     	draw(data);
         $('raw_data').innerText = data;
-        // $('.greeting-content').append(data.content);
+        // $('.greeting-content').append(data.content); 
     })
 }
 
