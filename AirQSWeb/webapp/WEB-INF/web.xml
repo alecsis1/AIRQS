@@ -92,6 +92,7 @@
     <display-name>public zone</display-name>
     <web-resource-collection>
       <web-resource-name>styles</web-resource-name>
+      <url-pattern>/favicon.ico</url-pattern>
       <url-pattern>/styles/fonts/*</url-pattern>
       <url-pattern>/styles/font-awesome-4.5.0/*</url-pattern>
       <url-pattern>/styles/reset.css</url-pattern>
@@ -104,9 +105,10 @@
       <http-method>OPTIONS</http-method>
       <http-method>PUT</http-method>
     </web-resource-collection>
-    <web-resource-collection>
-      <web-resource-name>app</web-resource-name>
-      <url-pattern>/login/*</url-pattern>
+    <!--web-resource-collection>
+      <web-resource-name>debug</web-resource-name>
+      <url-pattern>/index.html</url-pattern>
+      <url-pattern>/javascript/*</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>
       <http-method>TRACE</http-method>
@@ -115,31 +117,7 @@
       <http-method>CONNECT</http-method>
       <http-method>OPTIONS</http-method>
       <http-method>PUT</http-method>
-    </web-resource-collection>
-    <web-resource-collection>
-      <web-resource-name>images</web-resource-name>
-      <url-pattern>/images/login/*</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-      <http-method>TRACE</http-method>
-      <http-method>HEAD</http-method>
-      <http-method>DELETE</http-method>
-      <http-method>CONNECT</http-method>
-      <http-method>OPTIONS</http-method>
-      <http-method>PUT</http-method>
-    </web-resource-collection>
-    <web-resource-collection>
-      <web-resource-name>favicon</web-resource-name>
-      <url-pattern>/favicon.ico</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-      <http-method>TRACE</http-method>
-      <http-method>HEAD</http-method>
-      <http-method>DELETE</http-method>
-      <http-method>CONNECT</http-method>
-      <http-method>OPTIONS</http-method>
-      <http-method>PUT</http-method>
-    </web-resource-collection>
+    </web-resource-collection-->
     <user-data-constraint>
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
@@ -160,4 +138,7 @@
     <description>The role required to login to application</description>
     <role-name>guests</role-name>
   </security-role>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
 </web-app>

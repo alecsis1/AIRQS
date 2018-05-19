@@ -38,6 +38,8 @@ public class AirQSRestClient {
 		am.setMq3(4.4);
 		am.setMq7(5.5);
 		am.setPressure(6.6);
+		am.setLat(44.234D);
+		am.setLng(23.235456576D);
 		am.setTemp(7.7);
 		am.setTimestamp(System.currentTimeMillis());
 		am.setName("Test01AM");
