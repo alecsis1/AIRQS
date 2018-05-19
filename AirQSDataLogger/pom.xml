@@ -57,6 +57,13 @@
   		<groupId>${project.groupId}</groupId>
   		<artifactId>AirQSRestClient</artifactId>
   	</dependency>
+  	<dependency>
+	    <groupId>rpi.sansehat</groupId>
+	    <artifactId>java-executor</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	    <scope>system</scope>
+	    <systemPath>${project.basedir}/lib/java-executor-1.0-SNAPSHOT.jar</systemPath>
+	</dependency>
   </dependencies>
   <parent>
   	<groupId>org.qs.air</groupId>
