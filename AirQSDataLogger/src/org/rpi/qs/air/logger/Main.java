@@ -28,34 +28,19 @@ public class Main {
 		float temperature = senseHat.environmentalSensor.getTemperature();
 		System.out.println("Current temperature: " + temperature);
 
-		// IMUData accelerometer = senseHat.IMU.getAccelerometer();
-		// System.out.println("Current accelerometer: " +
-		// accelerometer.toString());
-		//
-		// IMUData gyroscope = senseHat.IMU.getGyroscope();
-		// System.out.println("Current gyroscope: " + gyroscope.toString());
-		//
-		// float compass = senseHat.IMU.getCompass();
-		// System.out.println("Current compass: " + compass);
-
-		// IMUData orientation = senseHat.IMU.getOrientation();
-		// System.out.println("Current orientation: " + orientation.toString());
-
-		// senseHat.ledMatrix.showMessage("my project");
-		// senseHat.ledMatrix.waitFor(5);
 		senseHat.ledMatrix.clear();
 
 		AirMetric ardMetric = readArdMetric(5, "COM13");
 		ardMetric.setPressure(pressure);
 		ardMetric.setTemp((ardMetric.getTemp() + temperature) / 2D);
 		ardMetric.setHum((ardMetric.getHum() + humidity) / 2D);
-		ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric, "https://airqs.symmetry-apps.org/rest/", "user",
+		ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric, "https://airqs.symmetry-apps.org/rest/", "pi01",
 				"moscraciun");
 		System.out.println(ardMetric);
 	}
 
 	private static AirMetric readArdMetric(int precision, String comPort) throws InterruptedException {
-		// TODO: https://github.com/Fazecast/jSerialComm/wiki/Modes-of-Operation
+
 		SerialPort serialPorts[] = SerialPort.getCommPorts();
 		port = null;
 		if (serialPorts.length == 1) {
@@ -68,35 +53,6 @@ public class Main {
 		port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 1000, 0);
 		boolean opened = port.openPort();
 		System.out.println("Port opened: " + opened + ", port name: " + port.getSystemPortName());
-
-		// port.addDataListener(new SerialPortDataListener() {
-		// @Override
-		// public int getListeningEvents() {
-		// return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
-		// }
-		//
-		// @Override
-		// public void serialEvent(SerialPortEvent event) {
-		// if (event.getEventType() !=
-		// SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-		// return;
-		// byte[] newData = new byte[port.bytesAvailable()];
-		// int numRead = port.readBytes(newData, newData.length);
-		// System.out.println("Read " + new String(newData,
-		// Charset.forName("utf8")) + " bytes.");
-		//
-		// }
-		// });
-
-		// try {
-		// while (true) {
-		// byte[] readBuffer = new byte[1024];
-		// int numRead = port.readBytes(readBuffer, readBuffer.length);
-		// System.out.println("Read " + new String(readBuffer) + " bytes.");
-		// }
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 
 		AirMetric resultAirMetric = new AirMetric();
 
