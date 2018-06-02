@@ -26,7 +26,38 @@ function draw(response) {
 //  }
 
   //var ticketsData = response.getDataTable();
-  var geoData = new google.visualization.DataTable(response);
+  var geoData = new google.visualization.DataTable(); // DataTable
+  geoData.addColumn('string', 'Name');
+  geoData.addColumn('number', 'MQ7');
+  geoData.addColumn('number', 'MQ3');
+  geoData.addColumn('number', 'MQ135');
+  geoData.addColumn('number', 'MQ2');
+  geoData.addColumn('number', 'Humidity');
+  geoData.addColumn('number', 'Temperature');
+  geoData.addColumn('number', 'Pressure');
+  geoData.addColumn('datetime', 'Date');
+  geoData.addColumn('number', 'Latitude');
+  geoData.addColumn('number', 'Longitude');
+  geoData.addRows(response.length);
+  
+  var i;
+  for (i = 0; i < response.length; i++) {
+	  var obj = response[i];
+	  geoData.setCell(i, 0, obj.name);
+	  geoData.setCell(i, 1, obj.mq7);
+	  geoData.setCell(i, 2, obj.mq3);
+	  geoData.setCell(i, 3, obj.mq135);
+	  geoData.setCell(i, 4, obj.mq2);
+	  geoData.setCell(i, 5, obj.hum);
+	  geoData.setCell(i, 6, obj.temp);
+	  geoData.setCell(i, 7, obj.pressure);
+	  var d = new Date(0); 
+	  d.setUTCSeconds(obj.timestamp);
+	  geoData.setCell(i, 8, d);
+	  geoData.setCell(i, 9, obj.lat);
+	  geoData.setCell(i, 10, obj.lng);
+  } 
+
   var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
   
   chart.draw(geoData, {'isStacked': true, 'legend': 'bottom',
