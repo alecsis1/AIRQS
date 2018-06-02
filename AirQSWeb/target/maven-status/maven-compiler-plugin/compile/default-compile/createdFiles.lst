@@ -1,3 +1,0 @@
-org\qs\air\web\server\QFPMainService.class
-org\qs\air\wildfly\filters\GWTGzipFilter.class
-org\qs\air\wildfly\filters\GWTCacheControlFilter.class
