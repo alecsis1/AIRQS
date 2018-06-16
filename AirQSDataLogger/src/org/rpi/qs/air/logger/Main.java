@@ -7,7 +7,6 @@ import java.util.List;
 import org.qs.air.api.core.entities.AirMetric;
 import org.qs.air.rest.client.AirQSRestClient;
 
-
 import com.fazecast.jSerialComm.SerialPort;
 
 import rpi.sensehat.api.SenseHat;
@@ -15,28 +14,46 @@ import rpi.sensehat.api.SenseHat;
 public class Main {
 
 	private static SerialPort port;
+	private static long interval;
+	private static String serialPort;
 
 	public static void main(String[] args) throws InterruptedException {
-		SenseHat senseHat = new SenseHat();
 
-		float humidity = senseHat.environmentalSensor.getHumidity();
-		System.out.println("Current humidity: " + humidity);
+		if (args != null && args.length > 1) {
+			interval = Long.valueOf(args[0]);
+			serialPort = args[1];
+		} else {
+			interval = 60000l;
+			serialPort = null;
+		}
 
-		float pressure = senseHat.environmentalSensor.getPressure();
-		System.out.println("Current pressure: " + pressure);
+		while (true) {
+			SenseHat senseHat = new SenseHat();
 
-		float temperature = senseHat.environmentalSensor.getTemperature();
-		System.out.println("Current temperature: " + temperature);
+			float humidity = senseHat.environmentalSensor.getHumidity();
+			System.out.println("Current humidity: " + humidity);
 
-		senseHat.ledMatrix.clear();
+			float pressure = senseHat.environmentalSensor.getPressure();
+			System.out.println("Current pressure: " + pressure);
 
-		AirMetric ardMetric = readArdMetric(5, "COM13");
-		ardMetric.setPressure(pressure);
-		ardMetric.setTemp((ardMetric.getTemp() + temperature) / 2D);
-		ardMetric.setHum((ardMetric.getHum() + humidity) / 2D);
-		ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric, "https://airqs.symmetry-apps.org/rest/", "pi01",
-				"moscraciun");
-		System.out.println(ardMetric);
+			float temperature = senseHat.environmentalSensor.getTemperature();
+			System.out.println("Current temperature: " + temperature);
+
+			senseHat.ledMatrix.clear();
+
+			AirMetric ardMetric = readArdMetric(5, serialPort);
+			if (ardMetric != null) {
+				ardMetric.setPressure(pressure);
+				ardMetric.setTemp((ardMetric.getTemp() + temperature) / 2D);
+				ardMetric.setHum((ardMetric.getHum() + humidity) / 2D);
+				ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric,
+						"https://airqs.symmetry-apps.org/rest/");
+				System.out.println(ardMetric);
+			} else {
+				System.out.println("Missing serial port.");
+			}
+			Thread.sleep(interval);
+		}
 	}
 
 	private static AirMetric readArdMetric(int precision, String comPort) throws InterruptedException {
@@ -46,8 +63,11 @@ public class Main {
 		if (serialPorts.length == 1) {
 			port = serialPorts[0];
 		}
-		if (port == null) {
+		if (port == null && comPort != null) {
 			port = SerialPort.getCommPort(comPort);
+		}
+		if (port == null) {
+			return null;
 		}
 		port.setBaudRate(9600);
 		port.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 1000, 0);

@@ -2,8 +2,13 @@ package org.qs.air.rest.client;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@XmlRootElement(name = "TokenModel")
+@XmlType(name = "TokenModel")
 public class TokenModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -75,6 +80,13 @@ public class TokenModel implements Serializable {
 
 	public void setNot_before_policy(int not_before_policy) {
 		this.not_before_policy = not_before_policy;
+	}
+
+	@Override
+	public String toString() {
+		return "TokenModel [access_token=" + access_token + ", refresh_token=" + refresh_token + ", token_type="
+				+ token_type + ", session_state=" + session_state + ", expires_in=" + expires_in
+				+ ", refresh_expires_in=" + refresh_expires_in + ", not_before_policy=" + not_before_policy + "]";
 	}
 
 }

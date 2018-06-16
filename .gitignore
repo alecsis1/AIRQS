@@ -22,3 +22,6 @@
 hs_err_pid*
 /.metadata/
 /.recommenders/
+/wildfly-11.0.0.Final/
+/*/target/
+/RemoteSystemsTempFiles/

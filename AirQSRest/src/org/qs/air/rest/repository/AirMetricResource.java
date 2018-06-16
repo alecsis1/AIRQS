@@ -1,7 +1,5 @@
 package org.qs.air.rest.repository;
 
-import java.security.Principal;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,9 +16,7 @@ import javax.transaction.UserTransaction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -30,9 +26,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import org.qs.air.api.core.entities.AirMetric;
+import org.qs.air.api.core.entities.AirMetricLocation;
 import org.qs.air.rest.GenericResponse;
-import com.nimbusds.jwt.JWT;
-import com.nimbusds.jwt.JWTParser;
 
 @Path("/am")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -69,6 +64,66 @@ public class AirMetricResource {
 		}
 
 		EntityManager em = emf.createEntityManager();
+
+		List<AirMetricLocation> amls = em.createNamedQuery("AirMetricLocation.findAll", AirMetricLocation.class)
+				.setMaxResults(1).getResultList();
+
+		if (amls.size() == 1) {
+			am.setLat(amls.get(0).getLat());
+			am.setLng(amls.get(0).getLng());
+
+			System.out.println("Registered metric for device last found location");
+		}
+
+		em.persist(am);
+		em.flush();
+
+		em.close();
+
+		try {
+			tx.commit();
+		} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException
+				| HeuristicRollbackException | SystemException e) {
+			// log.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
+
+		response.setStatus(true);
+		response.setMessage("AirMetric created successfully");
+
+		return Response.ok(response).entity(am).build();
+	}
+
+	@POST
+	@Path("/device/{device}")
+	public Response addAirMetricForDevice(@PathParam("device") String device, AirMetric am) {
+		GenericResponse response = new GenericResponse();
+
+		if (am.getId() != 0L) {
+			response.setStatus(false);
+			response.setMessage("AirMetric id must be 0 to create a new one!");
+			response.setErrorCode("EC-01");
+			return Response.status(422).entity(response).build();
+		}
+
+		try {
+			tx.begin();
+		} catch (NotSupportedException | SystemException e) {
+			// log.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
+
+		EntityManager em = emf.createEntityManager();
+
+		List<AirMetricLocation> amls = em.createNamedQuery("AirMetricLocation.findAllByDevice", AirMetricLocation.class)
+				.setParameter("device", device).setMaxResults(1).getResultList();
+
+		if (amls.size() == 1) {
+			am.setLat(amls.get(0).getLat());
+			am.setLng(amls.get(0).getLng());
+
+			System.out.println("Registered metric for device " + device);
+		}
 
 		em.persist(am);
 		em.flush();
