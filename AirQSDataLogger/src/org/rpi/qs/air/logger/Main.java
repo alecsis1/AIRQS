@@ -46,8 +46,7 @@ public class Main {
 				ardMetric.setPressure(pressure);
 				ardMetric.setTemp((ardMetric.getTemp() + temperature) / 2D);
 				ardMetric.setHum((ardMetric.getHum() + humidity) / 2D);
-				ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric,
-						"https://airqs.symmetry-apps.org/rest/");
+				ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric, "https://airqs.symmetry-apps.org/rest");
 				System.out.println(ardMetric);
 			} else {
 				System.out.println("Missing serial port.");
@@ -76,11 +75,11 @@ public class Main {
 
 		AirMetric resultAirMetric = new AirMetric();
 
-		InputStream in = port.getInputStream();
 		Thread.sleep(1000);
 		resultAirMetric.setName("ARD-METRIC");
 		resultAirMetric.setTimestamp(System.currentTimeMillis());
 		try {
+			InputStream in = port.getInputStream();
 			StringBuilder sb = new StringBuilder();
 			boolean done = false;
 			while (!done) {

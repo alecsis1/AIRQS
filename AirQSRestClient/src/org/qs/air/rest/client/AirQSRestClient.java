@@ -160,28 +160,29 @@ public class AirQSRestClient {
 				}
 			}
 		}
+		String token = getToken();
 
 		BasicAuthentication bauth = new BasicAuthentication(user, pass);
-		client.register(bauth);
-
+		// client.register(bauth);
+		System.out.println(url + "/api/v1/am");
 		ResteasyWebTarget endpoint = client.target(url + "/api/v1/am");
-		String token = getToken();
+
 		Builder reqBuilder = endpoint.request().accept(MediaType.APPLICATION_JSON)
 				.header("Content-Type", MediaType.APPLICATION_JSON).header("Authorization", "Bearer " + token);
 
-		Response response = reqBuilder.post(Entity.json(am));
-		// Response response = null;
-		// // AirMetric registeredAM = null;
-		//
+		Response response = null;
+		// AirMetric registeredAM = null;
+		response = reqBuilder.post(Entity.json(am));
+		System.out.println(response.getStatus());
 		// try {
-		// response = reqBuilder.post(Entity.json(objectMapper.writeValueAsString(am)));
+		// response = reqBuilder.post(Entity.json(am));
 		//
 		// String json = convertStreamToString((InputStream) response.getEntity());
 		// System.out.println(response.getStatus() + " " + json);
 		//
 		// // registeredAM = objectMapper.readValue(json, AirMetric.class);
 		// // System.out.println(registeredAM.toString());
-		// } catch (IOException e) {
+		// } catch (Exception e) {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }

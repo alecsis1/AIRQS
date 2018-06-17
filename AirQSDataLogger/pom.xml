@@ -15,28 +15,6 @@
       </resource>
     </resources>
     <plugins>
-    <plugin>
-  <artifactId>maven-assembly-plugin</artifactId>
-  <configuration>
-    <archive>
-      <manifest>
-        <mainClass>org.rpi.qs.air.logger.Main</mainClass>
-      </manifest>
-    </archive>
-    <descriptorRefs>
-      <descriptorRef>jar-with-dependencies</descriptorRef>
-    </descriptorRefs>
-  </configuration>
-  <executions>
-    <execution>
-      <id>make-assembly</id> <!-- this is used for inheritance merges -->
-      <phase>package</phase> <!-- bind to the packaging phase -->
-      <goals>
-        <goal>single</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
@@ -46,6 +24,20 @@
         </configuration>
       </plugin>
       <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>install</phase>
+                <goals>
+                  <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
@@ -53,7 +45,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>org.rpi.sense.hat.Main</mainClass>
+              <mainClass>org.rpi.qs.air.logger.Main</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -112,10 +104,6 @@
   		<artifactId>commons-logging</artifactId>
   		<version>1.1.1</version>
   	</dependency>
-  	<dependency>
-  		<groupId>com.fasterxml.jackson.jaxrs</groupId>
-  		<artifactId>jackson-jaxrs-json-provider</artifactId>
-  	</dependency>
   	  	<dependency>
   		<groupId>com.fasterxml.jackson.core</groupId>
   		<artifactId>jackson-databind</artifactId>
@@ -139,18 +127,6 @@
   	<dependency>
   		<groupId>org.jboss.resteasy</groupId>
   		<artifactId>resteasy-jaxrs</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.jboss.resteasy</groupId>
-  		<artifactId>resteasy-jaxb-provider</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>javax.activation</groupId>
-  		<artifactId>activation</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>javax.json.bind</groupId>
-  		<artifactId>javax.json.bind-api</artifactId>
   	</dependency>
   </dependencies>
   <parent>
