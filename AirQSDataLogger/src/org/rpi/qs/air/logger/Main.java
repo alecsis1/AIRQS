@@ -47,7 +47,7 @@ public class Main {
 				ardMetric.setTemp((ardMetric.getTemp() + temperature) / 2D);
 				ardMetric.setHum((ardMetric.getHum() + humidity) / 2D);
 				ardMetric = AirQSRestClient.CreateMetricSyncRestEasy(ardMetric, "https://airqs.symmetry-apps.org/rest");
-				System.out.println(ardMetric);
+				System.out.println(ardMetric.toString());
 			} else {
 				System.out.println("Missing serial port.");
 			}

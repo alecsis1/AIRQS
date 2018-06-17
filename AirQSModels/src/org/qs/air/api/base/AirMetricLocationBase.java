@@ -19,9 +19,9 @@ public class AirMetricLocationBase extends EntityBase implements Serializable {
 
 	private String name;
 
-	private String device;
+	// private String device;
 
-	@Column(name = "timestamp", columnDefinition = "bigint DEFAULT 0 ")
+	@Column(name = "timestamp", nullable = false, columnDefinition = "bigint DEFAULT 0 ")
 	private long timestamp;
 
 	@Column(name = "lat", columnDefinition = "double DEFAULT 0.00000 ")
@@ -65,18 +65,18 @@ public class AirMetricLocationBase extends EntityBase implements Serializable {
 		this.lng = lng;
 	}
 
-	public String getDevice() {
-		return device;
-	}
-
-	public void setDevice(String device) {
-		this.device = device;
-	}
+	// public String getDevice() {
+	// return device;
+	// }
+	//
+	// public void setDevice(String device) {
+	// this.device = device;
+	// }
 
 	@Override
 	public String toString() {
-		return "AirMetricLocationBase [name=" + name + ", device=" + device + ", timestamp=" + timestamp + ", lat="
-				+ lat + ", lng=" + lng + ", getId()=" + getId() + "]";
+		return "AirMetricLocationBase [name=" + name + ", timestamp=" + timestamp + ", lat=" + lat + ", lng=" + lng
+				+ ", getId()=" + getId() + "]";
 	}
 
 }

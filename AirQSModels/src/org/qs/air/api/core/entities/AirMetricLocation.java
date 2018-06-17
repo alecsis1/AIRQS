@@ -21,7 +21,7 @@ import org.qs.air.api.base.AirMetricLocationBase;
 @Table(name = "AirMetricLocations")
 @NamedQueries(value = {
 		@NamedQuery(name = "AirMetricLocation.findAll", query = "SELECT b FROM AirMetricLocation b order by b.timestamp DESC"),
-		@NamedQuery(name = "AirMetric.findAllByDevice", query = "SELECT b FROM AirMetricLocation b where b.device= :device order by b.timestamp DESC") })
+		@NamedQuery(name = "AirMetricLocation.findAllByDevice", query = "SELECT b FROM AirMetricLocation b where b.name= :device order by b.timestamp DESC") })
 public class AirMetricLocation extends AirMetricLocationBase implements Serializable {
 	private static final long serialVersionUID = 1L;
 

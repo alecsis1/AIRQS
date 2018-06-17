@@ -4,6 +4,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:jboss/datasources/AIRQSDS</jta-data-source>
 		<class>org.qs.air.api.core.entities.AirMetric</class>
+		<class>org.qs.air.api.core.entities.AirMetricLocation</class>
 		
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<validation-mode>CALLBACK</validation-mode>

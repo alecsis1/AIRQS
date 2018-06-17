@@ -152,7 +152,7 @@ public class AirMetricLocationResource {
 		AirMetricLocation aml = new AirMetricLocation();
 		aml.setName("Dummy aml");
 		aml.setId(0L);
-		aml.setDevice("pi-dummy");
+
 		aml.setTimestamp(System.currentTimeMillis());
 		aml.setLat(25.43434D);
 		aml.setLng(45.54365436);
