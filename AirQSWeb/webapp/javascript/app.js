@@ -5,6 +5,7 @@ var dataTable;
 var map;
 var chart;
 var table;
+var curvechart;
 
 function initialize() {
   // The URL of the spreadsheet to source data from.
@@ -27,11 +28,6 @@ function getData() {
 }
 
 function draw(response) {
-//  if (response.isError()) {
-//    alert('Error in query');
-//  }
-
-  //var ticketsData = response.getDataTable();
   dataTable = new google.visualization.DataTable(); // DataTable
   dataTable.addColumn('string', 'Name');
   dataTable.addColumn('number', 'MQ7');
@@ -50,12 +46,35 @@ function draw(response) {
   for (i = 0; i < response.length; i++) {
 	  var obj = response[i];
 	  dataTable.setCell(i, 0, obj.name);
+	  if(isNaN(obj.mq7)){
+		  obj.mq7 = 0;
+	  }
 	  dataTable.setCell(i, 1, obj.mq7);
+	  if(isNaN(obj.mq3)){
+		  obj.mq3 = 0;
+	  }
 	  dataTable.setCell(i, 2, obj.mq3);
+	  if(isNaN(obj.mq135)){
+		  obj.mq135 = 0;
+	  }
 	  dataTable.setCell(i, 3, obj.mq135);
+	  if(isNaN(obj.mq2)){
+		  obj.mq2 = 0;
+	  }
 	  dataTable.setCell(i, 4, obj.mq2);
+	  if(isNaN(obj.hum)){
+		  obj.hum = 0;
+	  }
 	  dataTable.setCell(i, 5, obj.hum);
+	  
+	  if(isNaN(obj.temp)){
+		  obj.temp = 0;
+	  }
 	  dataTable.setCell(i, 6, obj.temp);
+	  
+	  if(isNaN(obj.pressure)){
+		  obj.pressure = 0;
+	  }
 	  dataTable.setCell(i, 7, obj.pressure);
 	  dataTable.setCell(i, 8, new Date(obj.timestamp));
 	  dataTable.setCell(i, 9, obj.lat);
@@ -88,25 +107,45 @@ function openTab(evt, tabSelection) {
     	// Demo chart
     	if (chart == null) {
     		var options = {
-    		        title: 'GAS Sensors',
+    		        title: 'Sensors',
     		        isStacked: false,
     		        hAxis: {
     		          title: 'Date',
-    		          //format: 'dd-MM HH:mm',
-    		          gridlines: {count: 15}
+    		          gridlines: {count: 15},
     		          viewWindow: {
     		            max: 30
     		          }
     		        },
     		        vAxis: {
-    		          title: 'PPM'
+    		          title: 'PPM / Celsius Degrees'
     		        },
     		        'legend': 'bottom'
     		      };
+    		function getDateAsStringFromRow(dataTable, rowNum){
+				return (dataTable.getValue(rowNum, 8).toString());
+			}
 			var chartView = new google.visualization.DataView(dataTable);
-			chartView.setColumns([8, 1, 2, 3]);
+			chartView.setColumns([{calc: getDateAsStringFromRow, type: 'string', label:'Date and Time'}, 1, 2, 3, 4, 5, 6, 7]);
 			chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
 			chart.draw(chartView, options);
+    	}
+    	if (curvechart == null) {
+    		var options = {
+			  title: 'Sensors',
+			  curveType: 'function',
+			  legend: { position: 'bottom' }
+			};
+
+			function getDate(dataTable, rowNum){
+				return (dataTable.getValue(rowNum, 8).toString());
+			}
+			var curvechartView = new google.visualization.DataView(dataTable);
+			curvechartView.setColumns([{calc: getDate, type: 'string', label:'Date and Time'}, 1, 2, 3, 4, 5, 6, 7]);
+			
+			var curvechart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+			curvechart.draw(curvechartView, options);
+
     	}
     } else if(tabSelection == 'Map') {
     	if (map == null) {
@@ -125,7 +164,7 @@ function openTab(evt, tabSelection) {
 	    			useMapTypeControl: true,
 	    			zoomLevel: 15,
 	    			showInfoWindow: true,
-    		};
+    			};
 	    	var geoView = new google.visualization.DataView(dataTable);
 			geoView.setColumns([9, 10]);
 			

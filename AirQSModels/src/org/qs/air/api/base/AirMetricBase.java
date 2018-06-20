@@ -19,34 +19,34 @@ public class AirMetricBase extends EntityBase implements Serializable {
 
 	private String name;
 
-	@Column(name = "mq7", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "mq7", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double mq7;
 
-	@Column(name = "mq3", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "mq3", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double mq3;
 
-	@Column(name = "mq135", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "mq135", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double mq135;
 
-	@Column(name = "mq2", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "mq2", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double mq2;
 
-	@Column(name = "hum", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "hum", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double hum;
 
 	@Column(name = "temp", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double temp;
 
-	@Column(name = "pressure", columnDefinition = "double DEFAULT 0.0000 ")
+	@Column(name = "pressure", nullable = false, columnDefinition = "double DEFAULT 0.0000 ")
 	private double pressure;
 
 	@Column(name = "timestamp", nullable = false, columnDefinition = "bigint DEFAULT 0 ")
 	private long timestamp;
 
-	@Column(name = "lat", columnDefinition = "double DEFAULT 0.00000 ")
+	@Column(name = "lat", nullable = false, columnDefinition = "double DEFAULT 0.00000 ")
 	private double lat;
 
-	@Column(name = "lng", columnDefinition = "double DEFAULT 0.00000 ")
+	@Column(name = "lng", nullable = false, columnDefinition = "double DEFAULT 0.00000 ")
 	private double lng;
 
 	public AirMetricBase() {
